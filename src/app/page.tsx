@@ -1,470 +1,52 @@
-const navItems = [
-  "Accueil",
-  "Solutions",
-  "Secteurs",
-  "Réalisations",
-  "À propos",
-  "Ressources",
-];
+import { Icon } from "@/components/icons";
 
-const stats = [
-  { label: "Utilisateurs", value: "248" },
-  { label: "Projets", value: "34" },
-  { label: "Tâches", value: "156" },
-  { label: "Alertes", value: "7" },
+type IconName = Parameters<typeof Icon>[0]["name"];
+type Card = { title: string; text: string; icon: IconName; color: string };
+const navItems = ["Accueil", "Solutions", "Secteurs", "Réalisations", "À propos", "Ressources"];
+const problems: Card[] = [
+  { title: "Processus manuels et dispersés", text: "Trop de fichiers Excel, de WhatsApp et de papier ralentissent vos équipes.", icon: "FileSpreadsheet", color: "blue" },
+  { title: "Perte de temps et d’efficacité", text: "Les tâches répétitives consomment du temps et génèrent des erreurs.", icon: "Clock", color: "amber" },
+  { title: "Manque de visibilité et de contrôle", text: "Difficulté à suivre vos données en temps réel pour prendre les bonnes décisions.", icon: "SearchCheck", color: "violet" },
+  { title: "Coûts opérationnels élevés", text: "Des processus inefficaces entraînent des pertes et des coûts cachés.", icon: "TrendingUp", color: "rose" },
+  { title: "Risques et non-conformité", text: "Données sensibles mal sécurisées et documents difficiles à tracer.", icon: "ShieldCheck", color: "emerald" },
+  { title: "Expérience client insuffisante", text: "Des réponses lentes et un manque de suivi nuisent à la satisfaction client.", icon: "Users", color: "cyan" },
 ];
-
-const problems = [
-  "Processus manuels et dispersés",
-  "Perte de temps et d’efficacité",
-  "Manque de visibilité et de contrôle",
-  "Coûts opérationnels élevés",
-  "Risques et non-conformité",
-  "Expérience client insuffisante",
+const solutions: Card[] = [
+  { title: "ERP sur mesure", text: "Centralisez vos opérations, workflows et données dans une plateforme alignée sur votre métier.", icon: "Boxes", color: "blue" },
+  { title: "Applications métier", text: "Déployez des outils rapides et sécurisés, pensés pour les équipes terrain et les directions.", icon: "Workflow", color: "violet" },
+  { title: "Automatisation IA", text: "Réduisez les tâches répétitives grâce à des assistants et automatisations intelligentes.", icon: "Bot", color: "cyan" },
+  { title: "Gestion documentaire", text: "Structurez vos documents, validations, recherches et archivages avec des processus fiables.", icon: "FolderKanban", color: "amber" },
+  { title: "Tableaux de bord & Reporting", text: "Pilotez vos indicateurs clés avec des vues claires, actualisées et exploitables.", icon: "BarChart3", color: "rose" },
+  { title: "Intégration & Cloud", text: "Connectez vos systèmes et modernisez votre infrastructure avec Microsoft Azure.", icon: "Cloud", color: "emerald" },
 ];
-
-const solutions = [
-  {
-    title: "ERP sur mesure",
-    text: "Centralisez vos opérations, vos workflows et vos données dans une plateforme alignée sur votre façon de travailler.",
-  },
-  {
-    title: "Applications métier",
-    text: "Déployez des outils rapides, sécurisés et adaptés aux équipes terrain, aux directions et aux clients.",
-  },
-  {
-    title: "Automatisation IA",
-    text: "Réduisez les tâches répétitives grâce à des assistants, des agents et des automatisations intelligentes.",
-  },
-  {
-    title: "Gestion documentaire",
-    text: "Structurez vos documents, validations, recherches et archivages avec des processus fiables.",
-  },
-  {
-    title: "Tableaux de bord & Reporting",
-    text: "Pilotez vos indicateurs clés avec des vues claires, actualisées et exploitables par chaque équipe.",
-  },
-  {
-    title: "Intégration & Cloud",
-    text: "Connectez vos systèmes existants et modernisez votre infrastructure avec Microsoft Azure.",
-  },
+const whyItems: Card[] = [
+  { title: "Développement accéléré avec l’IA", text: "Des solutions livrées plus vite, sans compromis sur la qualité.", icon: "Zap", color: "blue" },
+  { title: "Expertise Microsoft & Azure", text: "Une stack entreprise fiable, évolutive et pérenne.", icon: "BadgeCheck", color: "violet" },
+  { title: "Solutions sur mesure", text: "Des outils conçus autour de vos processus réels.", icon: "Target", color: "cyan" },
+  { title: "Accompagnement de bout en bout", text: "De l’idée au déploiement, nous restons à vos côtés.", icon: "Handshake", color: "amber" },
+  { title: "Sécurité & conformité", text: "Vos données restent protégées à chaque étape.", icon: "LockKeyhole", color: "emerald" },
 ];
-
-const whyItems = [
-  "Développement accéléré avec l’IA",
-  "Expertise Microsoft & Azure",
-  "Solutions sur mesure",
-  "Accompagnement de bout en bout",
-  "Sécurité & conformité",
-];
-
-const realisations = [
-  {
-    title: "Social Insights",
-    text: "Plateforme d’analyse des médias sociaux et des tendances.",
-  },
-  {
-    title: "NextUp",
-    text: "Plateforme de recrutement et de mise en relation.",
-  },
-  {
-    title: "Solutions sur mesure",
-    text: "ERP, applications et automatisations développés pour nos clients.",
-  },
-];
-
 const sectors = [
-  "ONG Sénégal",
-  "Centre Médical Espoir",
-  "École Excellence Dakar",
-  "Entreprise BTP Sénégal",
-  "Cabinet Conseil Dakar",
-  "Association Lumière Sénégal",
-];
+  ["ONG", "HeartHandshake", "blue"], ["Centre médical", "Hospital", "rose"], ["École", "GraduationCap", "violet"],
+  ["BTP", "Building2", "amber"], ["Cabinet conseil", "BadgeCheck", "cyan"], ["Association", "Users", "emerald"],
+] as const;
+const palette: Record<string, string> = { blue: "bg-blue-50 text-blue-600 ring-blue-100", amber: "bg-amber-50 text-amber-600 ring-amber-100", violet: "bg-violet-50 text-violet-600 ring-violet-100", rose: "bg-rose-50 text-rose-600 ring-rose-100", emerald: "bg-emerald-50 text-emerald-600 ring-emerald-100", cyan: "bg-cyan-50 text-cyan-600 ring-cyan-100" };
 
-const footerColumns = {
-  Solutions: ["ERP sur mesure", "Applications métier", "Automatisation IA", "Cloud Azure"],
-  Entreprise: ["À propos", "Réalisations", "Ressources", "Secteurs"],
-  Contact: ["contact@fenixfuz.com", "WhatsApp", "Dakar, Sénégal"],
-};
+function Brand({ inverse = false }: { inverse?: boolean }) { return <a href="#" className="flex items-center gap-3" aria-label="FenixFuz accueil"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 via-cyan-400 to-violet-600 text-2xl font-black italic text-white shadow-lg shadow-blue-500/25">F</span><span><b className={`block text-xl tracking-tight ${inverse ? "text-white" : "text-slate-950"}`}>FenixFuz</b><small className={inverse ? "text-slate-400" : "text-blue-700"}>Digitaliser. Automatiser. Performer.</small></span></a> }
+function Glyph({ item, size = 24 }: { item: Pick<Card, "icon" | "color">; size?: number }) { return <span className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl ring-1 ${palette[item.color]}`}><Icon name={item.icon} size={size} /></span> }
+function Heading({ eyebrow, title, text, inverse = false }: { eyebrow: string; title: string; text?: string; inverse?: boolean }) { return <div className="mx-auto max-w-3xl text-center"><p className={`text-xs font-bold uppercase tracking-[.25em] ${inverse ? "text-cyan-300" : "text-blue-700"}`}>{eyebrow}</p><h2 className={`mt-4 text-3xl font-bold tracking-tight sm:text-4xl ${inverse ? "text-white" : "text-slate-950"}`}>{title}</h2>{text && <p className={`mx-auto mt-4 max-w-2xl leading-7 ${inverse ? "text-slate-300" : "text-slate-600"}`}>{text}</p>}</div> }
+function MiniChart() { return <svg className="h-24 w-full" viewBox="0 0 360 100" preserveAspectRatio="none"><defs><linearGradient id="fill" x1="0" x2="0" y1="0" y2="1"><stop stopColor="#38bdf8" stopOpacity=".35"/><stop offset="1" stopColor="#38bdf8" stopOpacity="0"/></linearGradient></defs><path d="M0 87C42 82 40 65 76 69s43-36 76-26 50-7 78-1 47-23 72-15 39-11 58-21v94H0Z" fill="url(#fill)"/><path d="M0 87C42 82 40 65 76 69s43-36 76-26 50-7 78-1 47-23 72-15 39-11 58-21" fill="none" stroke="#38bdf8" strokeWidth="4"/></svg> }
+function Dashboard() { return <div className="relative lg:ml-6"><div className="overflow-hidden rounded-[1.7rem] border-[6px] border-slate-800 bg-white shadow-2xl shadow-blue-950/25"><div className="flex min-h-[390px]"><aside className="hidden w-28 bg-[#081128] p-4 sm:block"><div className="h-7 w-7 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600"/><div className="mt-10 space-y-4">{["w-16","w-12","w-16","w-10","w-14"].map((w,i)=><div key={i} className={`h-2 ${w} rounded bg-white/${i===0?"70":"20"}`}/>)}</div></aside><div className="flex-1 bg-slate-50 p-5"><div className="flex items-center justify-between"><div><p className="text-lg font-bold text-slate-900">Bonjour, Fatou 👋</p><p className="text-xs text-slate-500">Voici votre activité aujourd’hui</p></div><span className="h-9 w-9 rounded-full bg-gradient-to-br from-blue-400 to-violet-500"/></div><div className="mt-5 grid grid-cols-3 gap-2">{[["Chiffre d’affaires","12.5M","+18%"],["Projets actifs","24","+5%"],["Tâches","86","+12%"]].map(x=><div key={x[0]} className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-slate-200"><p className="truncate text-[10px] text-slate-500">{x[0]}</p><b className="mt-1 block text-lg text-slate-900">{x[1]}</b><small className="text-emerald-600">{x[2]}</small></div>)}</div><div className="mt-3 grid gap-3 md:grid-cols-[1.45fr_.8fr]"><div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200"><div className="flex justify-between"><b className="text-xs">Performance</b><small className="text-slate-400">Cette année</small></div><MiniChart/></div><div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200"><b className="text-xs">Activités</b>{["Facture validée","Nouveau projet","Rapport envoyé"].map((x,i)=><div key={x} className="mt-3 flex gap-2"><span className={`mt-1.5 h-2 w-2 rounded-full ${["bg-emerald-400","bg-blue-400","bg-violet-400"][i]}`}/><div><p className="text-[11px] font-semibold">{x}</p><small className="text-[9px] text-slate-400">Il y a {i+1} h</small></div></div>)}</div></div></div></div></div><div className="absolute -bottom-10 -right-3 w-36 rounded-[1.4rem] border-4 border-slate-800 bg-white p-2 shadow-2xl sm:-right-8"><div className="rounded-xl bg-[#081128] p-3 text-white"><small className="text-cyan-300">Mobile app</small><p className="mt-2 text-xl font-bold">86%</p><p className="text-[10px] text-slate-400">Objectifs atteints</p><div className="mt-3 h-1.5 rounded bg-white/10"><div className="h-full w-4/5 rounded bg-cyan-400"/></div></div></div></div> }
+function ProjectVisual({ kind }: { kind: number }) { return <div className={`h-40 overflow-hidden rounded-2xl p-4 ${["bg-gradient-to-br from-blue-600 to-violet-600","bg-gradient-to-br from-slate-800 to-blue-900","bg-gradient-to-br from-cyan-600 to-blue-700"][kind]}`}><div className="flex gap-2"><span className="h-2 w-2 rounded-full bg-white/60"/><span className="h-2 w-2 rounded-full bg-white/40"/></div><div className="mt-5 grid grid-cols-3 gap-2">{[1,2,3].map(x=><span key={x} className="h-9 rounded-lg bg-white/15"/>)}</div><div className="mt-3 flex items-end gap-2 rounded-lg bg-white/10 px-3 pt-3">{["h-6","h-11","h-8","h-14","h-10","h-16","h-12"].map((h,i)=><span key={i} className={`w-full ${h} rounded-t bg-white/${20+i*10}`}/>)}</div></div> }
 
-function SectionHeading({
-  eyebrow,
-  title,
-  inverse = false,
-}: {
-  eyebrow?: string;
-  title: string;
-  inverse?: boolean;
-}) {
-  return (
-    <div className="mx-auto max-w-3xl text-center">
-      {eyebrow ? (
-        <p
-          className={`mb-3 text-sm font-semibold uppercase tracking-[0.16em] ${
-            inverse ? "text-cyan-200" : "text-cyan-700"
-          }`}
-        >
-          {eyebrow}
-        </p>
-      ) : null}
-      <h2
-        className={`text-3xl font-semibold tracking-tight sm:text-4xl ${
-          inverse ? "text-white" : "text-slate-950"
-        }`}
-      >
-        {title}
-      </h2>
-    </div>
-  );
-}
-
-function DashboardMockup() {
-  return (
-    <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
-      <div className="rounded-[2rem] border border-white/70 bg-white/90 p-3 shadow-2xl shadow-slate-900/15 ring-1 ring-slate-900/5 backdrop-blur">
-        <div className="overflow-hidden rounded-[1.35rem] border border-slate-200 bg-slate-950">
-          <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-            <div>
-              <p className="text-sm font-semibold text-white">FenixFuz Ops</p>
-              <p className="text-xs text-slate-400">Vue opérationnelle</p>
-            </div>
-            <div className="flex gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-cyan-300" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
-            </div>
-          </div>
-
-          <div className="grid gap-4 bg-slate-100 p-4 sm:grid-cols-4">
-            {stats.map((item) => (
-              <div key={item.label} className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
-                <p className="text-xs font-medium text-slate-500">{item.label}</p>
-                <p className="mt-2 text-2xl font-semibold text-slate-950">{item.value}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid gap-4 bg-slate-100 px-4 pb-4 lg:grid-cols-[1.4fr_1fr]">
-            <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-              <div className="mb-5 flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold text-slate-950">Performance</p>
-                  <p className="text-xs text-slate-500">Automatisations actives</p>
-                </div>
-                <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-                  +28%
-                </span>
-              </div>
-              <svg viewBox="0 0 360 150" className="h-40 w-full" aria-hidden="true">
-                <defs>
-                  <linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.34" />
-                    <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.02" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M0 126 C36 104 50 112 78 88 C115 56 128 85 160 69 C196 50 205 35 238 47 C277 61 288 20 324 28 C343 32 352 41 360 36 L360 150 L0 150 Z"
-                  fill="url(#chartFill)"
-                />
-                <path
-                  d="M0 126 C36 104 50 112 78 88 C115 56 128 85 160 69 C196 50 205 35 238 47 C277 61 288 20 324 28 C343 32 352 41 360 36"
-                  fill="none"
-                  stroke="#0891b2"
-                  strokeLinecap="round"
-                  strokeWidth="6"
-                />
-              </svg>
-            </div>
-
-            <div className="space-y-3">
-              {["Validation facture", "Synchronisation CRM", "Rapport direction"].map((item, index) => (
-                <div key={item} className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-50 text-sm font-bold text-cyan-700">
-                      {index + 1}
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-slate-950">{item}</p>
-                      <p className="text-xs text-slate-500">Workflow automatisé</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute -bottom-8 right-3 w-44 rounded-[1.5rem] border border-slate-200 bg-white p-3 shadow-2xl shadow-slate-900/20 sm:-right-8">
-        <div className="rounded-[1.1rem] bg-slate-950 p-3 text-white">
-          <p className="text-xs text-cyan-200">Mobile Task</p>
-          <p className="mt-2 text-lg font-semibold">7 urgences</p>
-          <div className="mt-4 space-y-2">
-            <span className="block h-2 rounded-full bg-cyan-300" />
-            <span className="block h-2 w-3/4 rounded-full bg-white/40" />
-            <span className="block h-2 w-1/2 rounded-full bg-white/25" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default function Home() {
-  return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-5 py-4 sm:px-8">
-          <div className="flex items-center justify-between gap-6">
-            <a href="#" className="shrink-0" aria-label="FenixFuz accueil">
-              <span className="block text-xl font-bold tracking-tight text-slate-950">FenixFuz</span>
-              <span className="block text-xs font-medium text-cyan-700">Digitaliser. Automatiser. Performer.</span>
-            </a>
-            <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 lg:flex">
-              {navItems.map((item) => (
-                <a key={item} href="#" className="transition hover:text-slate-950">
-                  {item}
-                </a>
-              ))}
-            </nav>
-            <div className="hidden items-center gap-3 md:flex">
-              <a
-                href="#contact"
-                className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-slate-950 hover:bg-slate-950 hover:text-white"
-              >
-                Nous contacter
-              </a>
-              <a
-                href="#contact"
-                className="rounded-full bg-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-600/20 transition hover:bg-cyan-700"
-              >
-                Discuter sur WhatsApp
-              </a>
-            </div>
-          </div>
-          <div className="mt-4 border-t border-slate-200 pt-3 lg:hidden">
-            <nav className="flex gap-4 overflow-x-auto pb-2 text-sm font-medium text-slate-600">
-              {navItems.map((item) => (
-                <a key={item} href="#" className="shrink-0 transition hover:text-slate-950">
-                  {item}
-                </a>
-              ))}
-            </nav>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2 md:hidden">
-              <a
-                href="#contact"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800"
-              >
-                Nous contacter
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex min-h-11 items-center justify-center rounded-full bg-cyan-600 px-4 py-2 text-sm font-semibold text-white"
-              >
-                Discuter sur WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <section className="overflow-hidden border-b border-slate-200 bg-[radial-gradient(circle_at_15%_20%,#dff7ff_0,transparent_34%),linear-gradient(135deg,#ffffff_0%,#eef6ff_48%,#f8fbff_100%)]">
-        <div className="mx-auto grid max-w-7xl gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-28">
-          <div>
-            <div className="inline-flex rounded-full border border-cyan-200 bg-white/80 px-4 py-2 text-sm font-semibold text-cyan-800 shadow-sm">
-              Solutions de digitalisation & d&apos;automatisation
-            </div>
-            <h1 className="mt-8 max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-              Transformez vos défis opérationnels en solutions numériques performantes.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Nous concevons des ERP sur mesure, des applications métier et des automatisations IA adaptés à votre
-              organisation pour gagner en efficacité, en visibilité et en croissance.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#contact"
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-slate-900/20 transition hover:bg-slate-800"
-              >
-                Décrivez votre projet
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:border-cyan-500 hover:text-cyan-700"
-              >
-                Parler à un expert via WhatsApp
-              </a>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold text-slate-700">
-              {["Microsoft Solutions Partner", "Microsoft Azure Partner", "Développement accéléré avec l’IA"].map(
-                (item) => (
-                  <span key={item} className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 shadow-sm">
-                    {item}
-                  </span>
-                ),
-              )}
-            </div>
-          </div>
-
-          <DashboardMockup />
-        </div>
-      </section>
-
-      <section className="px-5 py-20 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading title="Les problèmes que nous résolvons" />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {problems.map((problem) => (
-              <div key={problem} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="mb-5 h-10 w-10 rounded-xl bg-cyan-50 ring-1 ring-cyan-100" />
-                <h3 className="text-lg font-semibold text-slate-950">{problem}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
-                  Nous structurons les flux, automatisons les tâches critiques et rendons les informations exploitables.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-slate-200 bg-white px-5 py-20 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="Offre" title="Nos solutions" />
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {solutions.map((solution) => (
-              <article key={solution.title} className="rounded-2xl border border-slate-200 p-6 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10">
-                <h3 className="text-xl font-semibold text-slate-950">{solution.title}</h3>
-                <p className="mt-4 leading-7 text-slate-600">{solution.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-slate-950 px-5 py-20 text-white sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="Méthode" title="Pourquoi choisir FenixFuz ?" inverse />
-          <div className="mt-12 grid gap-4 md:grid-cols-5">
-            {whyItems.map((item) => (
-              <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.06] p-5">
-                <span className="mb-5 block h-1.5 w-12 rounded-full bg-cyan-300" />
-                <p className="font-semibold leading-6 text-white">{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-20 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="Impact" title="Nos réalisations" />
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {realisations.map((item) => (
-              <article key={item.title} className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-700">Projet</p>
-                <h3 className="mt-4 text-2xl font-semibold text-slate-950">{item.title}</h3>
-                <p className="mt-4 leading-7 text-slate-600">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-slate-200 bg-white px-5 py-16 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading title="Ils nous font confiance" />
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {sectors.map((sector) => (
-              <div key={sector} className="rounded-xl border border-slate-200 bg-slate-50 px-5 py-4 text-center font-semibold text-slate-700">
-                {sector}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="bg-slate-950 px-5 py-20 text-white sm:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">Contact</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Un projet en tête ? Parlez-nous de votre besoin
-            </h2>
-            <p className="mt-5 max-w-xl leading-7 text-slate-300">
-              Décrivez-nous votre projet en quelques clics. Nous vous recontactons rapidement avec une proposition
-              adaptée.
-            </p>
-            <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.06] p-6">
-              <h3 className="text-xl font-semibold">Ou discuter directement sur WhatsApp</h3>
-              <p className="mt-3 text-slate-300">Obtenez une réponse immédiate sur WhatsApp</p>
-              <a
-                href="#"
-                className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
-              >
-                Discuter sur WhatsApp
-              </a>
-              <p className="mt-5 text-sm text-slate-400">Vos informations sont 100% confidentielles.</p>
-            </div>
-          </div>
-
-          <form className="rounded-3xl border border-white/10 bg-white p-4 text-slate-950 shadow-2xl shadow-black/30 sm:p-6">
-            <div className="grid gap-4 md:grid-cols-2">
-              {[
-                "Nom complet",
-                "Entreprise / Organisation",
-                "Email",
-                "Téléphone / WhatsApp",
-                "Secteur d’activité",
-              ].map((label) => (
-                <label key={label} className={label === "Secteur d’activité" ? "md:col-span-2" : undefined}>
-                  <span className="mb-2 block text-sm font-semibold text-slate-700">{label}</span>
-                  <input
-                    className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
-                    type={label === "Email" ? "email" : "text"}
-                  />
-                </label>
-              ))}
-              <label className="md:col-span-2">
-                <span className="mb-2 block text-sm font-semibold text-slate-700">
-                  Décrivez votre projet ou votre besoin...
-                </span>
-                <textarea className="min-h-32 w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100" />
-              </label>
-            </div>
-            <button
-              type="submit"
-              className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-cyan-700"
-            >
-              Envoyer ma demande
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <footer className="bg-white px-5 py-14 sm:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.2fr_2fr]">
-          <div>
-            <p className="text-2xl font-bold tracking-tight text-slate-950">FenixFuz</p>
-            <p className="mt-4 max-w-md leading-7 text-slate-600">
-              Nous aidons les organisations à se digitaliser et à automatiser leurs processus grâce à des solutions
-              modernes et évolutives.
-            </p>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-3">
-            {Object.entries(footerColumns).map(([title, links]) => (
-              <div key={title}>
-                <h3 className="font-semibold text-slate-950">{title}</h3>
-                <ul className="mt-4 space-y-3 text-sm text-slate-600">
-                  {links.map((link) => (
-                    <li key={link}>{link}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </footer>
-    </main>
-  );
-}
+export default function Home() { return <main className="overflow-hidden bg-white text-slate-900">
+<header className="sticky top-0 z-50 border-b border-white/10 bg-[#030817]/95 text-white backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8"><Brand inverse/><nav className="hidden items-center gap-6 text-sm text-slate-300 lg:flex">{navItems.map((x,i)=><a key={x} href="#" className={`relative py-3 transition hover:text-white ${i===0?"text-white after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:bg-cyan-400":""}`}>{x}</a>)}</nav><div className="hidden gap-2 md:flex"><a href="#contact" className="rounded-full border border-white/30 px-4 py-2.5 text-sm font-semibold hover:bg-white/10">Nous contacter</a><a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2.5 text-sm font-semibold shadow-lg shadow-blue-600/30 hover:bg-blue-500"><Icon name="MessageCircle" size={17}/> Discuter sur WhatsApp</a></div></div></header>
+<section className="relative overflow-hidden bg-[radial-gradient(circle_at_16%_20%,#dbeafe_0,transparent_35%),radial-gradient(circle_at_82%_20%,#e0e7ff_0,transparent_32%),linear-gradient(135deg,#fff_0%,#eff6ff_100%)]"><div className="dot-grid absolute inset-0 opacity-45"/><div className="relative mx-auto grid max-w-7xl gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[.95fr_1.05fr] lg:items-center lg:py-28"><div><p className="inline-flex rounded-full border border-blue-200 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-blue-700 shadow-sm">Solutions de digitalisation & d&apos;automatisation</p><h1 className="mt-7 text-4xl font-bold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.8rem]">Transformez vos défis opérationnels en <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 bg-clip-text text-transparent">solutions numériques performantes.</span></h1><p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">Nous concevons des ERP sur mesure, des applications métier et des automatisations IA adaptés à votre organisation pour gagner en efficacité, en visibilité et en croissance.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row"><a href="#contact" className="inline-flex items-center gap-3 rounded-2xl bg-blue-600 px-5 py-3 text-white shadow-xl shadow-blue-600/20 hover:bg-blue-700"><Icon name="Send" size={20}/><span><b className="block text-sm">Décrivez votre projet</b><small className="text-blue-100">Recevez une réponse rapide</small></span></a><a href="#contact" className="inline-flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 shadow-sm hover:border-blue-300"><Icon name="MessageCircle" className="text-emerald-500" size={21}/><span><b className="block text-sm">Parler à un expert</b><small className="text-slate-500">Via WhatsApp</small></span></a></div><div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-slate-600">{["100% sur mesure","Sécurisé & évolutif","Expertise locale"].map(x=><span key={x} className="inline-flex gap-1.5"><Icon name="Check" className="text-emerald-500" size={16}/>{x}</span>)}</div></div><Dashboard/></div></section>
+<section className="px-5 py-20 sm:px-8"><div className="mx-auto max-w-7xl"><Heading eyebrow="Vos défis" title="Vous reconnaissez-vous dans ces difficultés ?" text="Nous transformons les freins du quotidien en opportunités de croissance durable."/><div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">{problems.map(x=><article key={x.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><Glyph item={x}/><h3 className="mt-5 text-sm font-bold leading-5">{x.title}</h3><p className="mt-3 text-sm leading-6 text-slate-500">{x.text}</p></article>)}</div></div></section>
+<section className="bg-slate-50 px-5 py-20 sm:px-8"><div className="mx-auto max-w-7xl"><Heading eyebrow="Notre expertise" title="Des solutions conçues pour votre performance" text="Des plateformes modernes qui simplifient le quotidien et accélèrent votre développement."/><div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{solutions.map(x=><article key={x.title} className="group rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-900/10"><Glyph item={x} size={25}/><h3 className="mt-6 text-xl font-bold">{x.title}</h3><p className="mt-3 min-h-20 leading-7 text-slate-600">{x.text}</p><a href="#contact" className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-blue-700">En savoir plus <Icon name="ArrowRight" size={16} className="transition group-hover:translate-x-1"/></a></article>)}</div></div></section>
+<section className="bg-[radial-gradient(circle_at_10%_20%,#102a56_0,transparent_30%),linear-gradient(135deg,#030817,#0a1733)] px-5 py-20 sm:px-8"><div className="mx-auto max-w-7xl"><Heading inverse eyebrow="Pourquoi FenixFuz" title="La technologie au service de votre ambition" text="Une équipe engagée, des technologies fiables et une approche résolument orientée résultats."/><div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{whyItems.map(x=><article key={x.title} className="rounded-2xl border border-white/10 bg-white/[.06] p-5 backdrop-blur transition hover:-translate-y-1 hover:bg-white/[.1]"><span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-300 ring-1 ring-cyan-300/20"><Icon name={x.icon}/></span><h3 className="mt-5 font-bold leading-6 text-white">{x.title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{x.text}</p></article>)}</div></div></section>
+<section className="relative px-5 py-20 sm:px-8"><div className="mx-auto max-w-7xl"><Heading eyebrow="Notre impact" title="Nos réalisations" text="Des produits numériques pensés pour répondre à des besoins concrets."/><div className="relative mt-12"><button aria-label="Précédent" className="absolute -left-14 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm xl:flex"><Icon name="ChevronLeft"/></button><button aria-label="Suivant" className="absolute -right-14 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm xl:flex"><Icon name="ChevronRight"/></button><div className="grid gap-5 md:grid-cols-3">{[["Social Insights","SI","Plateforme d’analyse des médias sociaux et des tendances."],["NextUp","N","Plateforme de recrutement et de mise en relation."],["Solutions sur mesure","FF","ERP, applications et automatisations conçus pour nos clients."]].map((x,i)=><article key={x[0]} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><ProjectVisual kind={i}/><div className="p-3"><span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-xs font-black text-white">{x[1]}</span><h3 className="mt-4 text-xl font-bold">{x[0]}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{x[2]}</p></div></article>)}</div></div></div></section>
+<section className="border-y border-slate-200 bg-slate-50 px-5 py-16 sm:px-8"><div className="mx-auto max-w-7xl"><Heading eyebrow="Secteurs" title="Ils nous font confiance"/><div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">{sectors.map(([title,icon,color])=><div key={title} className="rounded-2xl border border-slate-200 bg-white p-4 text-center shadow-sm"><span className={`mx-auto flex h-11 w-11 items-center justify-center rounded-xl ring-1 ${palette[color]}`}><Icon name={icon}/></span><p className="mt-3 text-sm font-bold">{title}</p></div>)}</div></div></section>
+<section id="contact" className="bg-[#030817] px-5 py-20 text-white sm:px-8"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr]"><div><p className="text-xs font-bold uppercase tracking-[.25em] text-cyan-300">Contact</p><h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">Un projet en tête ? <span className="text-cyan-300">Parlons-en.</span></h2><p className="mt-5 max-w-lg leading-7 text-slate-300">Décrivez votre besoin en quelques clics. Nous vous recontactons rapidement avec une première orientation adaptée.</p><div className="mt-7 flex flex-wrap gap-2">{["Réponse rapide","Échange confidentiel","Conseils personnalisés"].map(x=><span key={x} className="inline-flex gap-1.5 rounded-full border border-white/10 bg-white/[.06] px-3 py-2 text-xs text-slate-200"><Icon name="Check" size={15} className="text-cyan-300"/>{x}</span>)}</div><div className="mt-8 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-5"><div className="flex items-start gap-4"><span className="rounded-2xl bg-emerald-400 p-3 text-emerald-950"><Icon name="MessageCircle"/></span><div><h3 className="font-bold">Besoin d’une réponse immédiate ?</h3><p className="mt-1 text-sm text-emerald-100">Discutez directement avec nous sur WhatsApp.</p><a href="#" className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-emerald-300">Ouvrir WhatsApp <Icon name="ArrowRight" size={15}/></a></div></div></div></div><form className="rounded-3xl bg-white p-6 text-slate-900 shadow-2xl shadow-black/30 sm:p-8"><div className="grid gap-4 md:grid-cols-2">{["Nom complet","Entreprise / Organisation","Email","Téléphone / WhatsApp","Secteur d’activité"].map(x=><label key={x} className={x==="Secteur d’activité"?"md:col-span-2":""}><span className="mb-2 block text-sm font-bold text-slate-700">{x}</span><input type={x==="Email"?"email":"text"} placeholder={x} className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"/></label>)}<label className="md:col-span-2"><span className="mb-2 block text-sm font-bold text-slate-700">Décrivez votre projet ou votre besoin...</span><textarea className="min-h-28 w-full resize-y rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100" placeholder="Quelques mots sur votre projet..."/></label></div><button className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-4 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700" type="submit">Envoyer ma demande <Icon name="Send" size={17}/></button></form></div></section>
+<footer className="bg-white px-5 py-14 sm:px-8"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.2fr_2fr]"><div><Brand/><p className="mt-5 max-w-sm text-sm leading-7 text-slate-600">Nous aidons les organisations à digitaliser et automatiser leurs processus grâce à des solutions modernes et évolutives.</p></div><div className="grid gap-8 sm:grid-cols-3">{Object.entries({Solutions:["ERP sur mesure","Applications métier","Automatisation IA","Cloud Azure"],Entreprise:["À propos","Réalisations","Ressources","Secteurs"],Contact:["contact@fenixfuz.com","WhatsApp","Dakar, Sénégal"]}).map(([title,links])=><div key={title}><h3 className="font-bold">{title}</h3><ul className="mt-4 space-y-3 text-sm text-slate-500">{links.map(x=><li key={x}>{x}</li>)}</ul></div>)}</div></div><div className="mx-auto mt-10 max-w-7xl border-t border-slate-200 pt-5 text-xs text-slate-400">© 2026 FenixFuz. Tous droits réservés.</div></footer>
+</main> }
